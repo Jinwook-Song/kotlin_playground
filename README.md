@@ -1,10 +1,10 @@
 # Kotlin Playground
 
-| 프로젝트 기간 | 24.12.11~                                         |
-| ------------- | ------------------------------------------------- |
-| 프로젝트 목적 | Kotlin, jetpack compose                           |
-| Github        | https://github.com/Jinwook-Song/kotlin_playground |
-|               |                                                   |
+| 프로젝트 기간 | 24.12.11~                                                                      |
+| ------------- | ------------------------------------------------------------------------------ |
+| 프로젝트 목적 | Kotlin, jetpack compose                                                        |
+| Github        | https://github.com/Jinwook-Song/kotlin_playground                              |
+| Notion        | [Kotlin](https://www.notion.so/Kotlin-15905fda1868804cb6c8ea42196b5521?pvs=21) |
 
 ---
 

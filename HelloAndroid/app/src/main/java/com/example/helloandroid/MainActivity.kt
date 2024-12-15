@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.example.helloandroid.ui.theme.HelloAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,6 +24,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 @Composable
 fun MyApp() {
@@ -39,6 +42,8 @@ fun MyApp() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
+        fontSize = 25.sp, // scalable pixels
+        color = Color.Red,
         modifier = modifier
     )
 }
