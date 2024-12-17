@@ -41,68 +41,14 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     LayoutComposablesTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Greeting(
-                name = "Android",
-                modifier = Modifier.padding(innerPadding)
-            )
+            Sample01(modifier = Modifier)
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize(), // Modifier 추가
-    ) {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier
-        )
-        Text(
-            text = "Hello Kotlin!",
-            modifier = modifier
-        )
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .background(Color.Green)
-                .padding(10.dp)
-        ) {
-            Icon(
-                Icons.Default.Home,
-                contentDescription = null,
-                modifier = modifier.size(40.dp)
-            )
-            Text(
-                text = "Home"
-            )
-        }
-        Box(
-            modifier = modifier
-                .background(Color.Yellow)
-                .size(200.dp),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Icon(
-                Icons.Default.Home,
-                contentDescription = null,
-                modifier = modifier.size(40.dp)
-            )
-            Icon(
-                Icons.Default.Delete,
-                contentDescription = null,
-                modifier = modifier.size(40.dp).align(Alignment.Center)
-            )
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MyAppPreview() {
     MyApp()
 }
