@@ -19,57 +19,54 @@ fun RowColumnWeight(modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier.weight(1f)
         ) {
-            Surface(
+            ColoredBox(
                 color = Color.Red,
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("1")
-                }
-            }
-            Surface(
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                text = "1"
+            )
+            ColoredBox(
                 color = Color.Green,
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("2")
-                }
-            }
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                text = "2"
+            )
         }
         Row(
             modifier = Modifier.weight(1f)
         ) {
-            Surface(
+            ColoredBox(
                 color = Color.Blue,
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("3")
-                }
-            }
-            Surface(
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                text = "3"
+            )
+            ColoredBox(
                 color = Color.Yellow,
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("4")
-                }
-            }
+                modifier = Modifier.weight(1f).fillMaxHeight(),
+                text = "4"
+            )
         }
     }
 }
+
+@Composable
+fun ColoredBox(
+    color: Color,
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        color = color,
+        modifier = modifier
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text, color = Color.White)
+        }
+    }
+
+}
+
 @Preview
 @Composable
 private fun RowColumnWeightPreview() {
