@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     LayoutComposablesTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Sample01(modifier = Modifier)
+            Sample01Sol(modifier = Modifier)
         }
     }
 }

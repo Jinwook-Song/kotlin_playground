@@ -38,7 +38,7 @@ fun Sample01(modifier: Modifier) {
         ) {
             // 상단 절반 이미지
             Image(
-                painter = painterResource(id = R.drawable.avatar), // Replace with your image
+                painter = painterResource(id = R.drawable.sample_01_bg), // Replace with your image
                 contentDescription = "Background Image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
