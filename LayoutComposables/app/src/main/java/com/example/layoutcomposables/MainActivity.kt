@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     LayoutComposablesTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            PersonList(modifier = Modifier.padding(innerPadding))
+            ScaffoldExample(modifier = Modifier.padding(innerPadding))
         }
     }
 }
