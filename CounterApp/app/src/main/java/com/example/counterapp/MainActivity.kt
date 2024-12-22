@@ -23,5 +23,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
-    CounterApp()
+    CounterApp(modifier)
 }

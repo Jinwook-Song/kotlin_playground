@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CounterApp(modifier: Modifier = Modifier) {
-    var counter: MutableState<Int> = remember {
+    val counter: MutableState<Int> = remember {
         mutableStateOf(0)
     }
     Column(
