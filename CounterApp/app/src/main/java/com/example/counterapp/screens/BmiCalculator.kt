@@ -34,21 +34,36 @@ fun BmiCalculator(modifier: Modifier = Modifier) {
         Column(
             modifier = modifier.padding(it)
         ) {
-            TextField(
+            EditNumberField(
                 value = weight.value,
-                onValueChange = {
-                    weight.value = it
-                },
+                label = "Weight(in kg)",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
                 ),
-                label = { Text("Weight(in kg)") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
+                onValueChange = { weight.value = it },
             )
+
         }
     }
+}
+
+@Composable
+fun EditNumberField(
+    value: String,
+    label: String,
+    keyboardOptions: KeyboardOptions,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    TextField(
+        value = value,
+        onValueChange = onValueChange,
+        keyboardOptions = keyboardOptions,
+        label = { Text(label) },
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    )
 }
 
 
