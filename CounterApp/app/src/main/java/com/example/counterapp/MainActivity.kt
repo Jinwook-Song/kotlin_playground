@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.counterapp.screens.CounterApp
+import com.example.counterapp.screens.BmiCalculator
 import com.example.counterapp.ui.theme.CounterAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,5 +58,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
-    CounterApp(modifier)
+    BmiCalculator(modifier)
 }
