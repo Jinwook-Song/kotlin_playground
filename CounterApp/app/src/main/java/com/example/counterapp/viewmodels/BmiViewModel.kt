@@ -1,24 +1,34 @@
 package com.example.counterapp.viewmodels
 
 import android.annotation.SuppressLint
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class BmiViewModel : ViewModel() {
-    var weight by mutableStateOf("")
-    var height by mutableStateOf("")
-    var bmi by mutableStateOf("")
-    var status by mutableStateOf("")
+    val bmiState = mutableStateOf(BmiState())
+
+    fun updateWeight(weight: String) {
+        bmiState.value = bmiState.value.copy(
+            weight = weight
+        )
+        
+    }
+
+    fun updateHeight(height: String) {
+        bmiState.value = bmiState.value.copy(
+            height = height
+        )
+    }
 
     @SuppressLint("DefaultLocale")
-    public fun calculateBmi() {
-        val weight = weight.toDoubleOrNull() ?: 0.0
-        val height = height.toDoubleOrNull() ?: 0.0
+    fun calculateBmi() {
+        val weight = bmiState.value.weight.toDoubleOrNull() ?: 0.0
+        val height = bmiState.value.height.toDoubleOrNull() ?: 0.0
         val bmiValue = weight / (height * height)
-        bmi = String.format("%.1f", bmiValue)
-        status = getStatus(bmiValue)
+        bmiState.value = bmiState.value.copy(
+            bmi = String.format("%.1f", bmiValue),
+            status = getStatus(bmiValue)
+        )
     }
 
     private fun getStatus(bmi: Double): String {
@@ -57,6 +67,11 @@ class BmiViewModel : ViewModel() {
             OBESE_CLASS_III to "40 and above"
         )
     }
-
-
 }
+
+data class BmiState(
+    val weight: String = "",
+    val height: String = "",
+    val bmi: String = "",
+    val status: String = "",
+)

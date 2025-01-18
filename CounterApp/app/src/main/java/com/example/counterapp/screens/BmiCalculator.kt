@@ -30,6 +30,7 @@ import com.example.counterapp.viewmodels.BmiViewModel
 @Composable
 fun BmiCalculator(modifier: Modifier = Modifier) {
     val bmiViewModel: BmiViewModel = viewModel()
+    val state = bmiViewModel.bmiState.value
 
     Scaffold(
         topBar = {
@@ -39,29 +40,28 @@ fun BmiCalculator(modifier: Modifier = Modifier) {
                 }
             )
         }
-    ) { it ->
-
+    ) {
         Column(
             modifier = modifier.padding(it),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             EditNumberField(
-                value = bmiViewModel.weight,
+                value = state.weight,
                 label = "Weight(in kg)",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
-                onValueChange = { bmiViewModel.weight = it },
+                onValueChange = bmiViewModel::updateWeight
             )
             EditNumberField(
-                value = bmiViewModel.height,
+                value = state.height,
                 label = "Height(in meter)",
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
                 ),
-                onValueChange = { bmiViewModel.height = it },
+                onValueChange = bmiViewModel::updateHeight
             )
             Button(
                 onClick = {
@@ -71,8 +71,8 @@ fun BmiCalculator(modifier: Modifier = Modifier) {
                 Text("Calculate")
             }
             BmiResult(
-                bmi = bmiViewModel.bmi,
-                status = bmiViewModel.status,
+                bmi = state.bmi,
+                status = state.status,
                 statusMap = BmiViewModel.statusMap,
                 modifier = Modifier.weight(1f),
             )
