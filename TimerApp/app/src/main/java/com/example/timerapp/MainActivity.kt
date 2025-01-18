@@ -20,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.timerapp.ui.theme.TimerAppTheme
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -66,6 +68,19 @@ fun TimerScreen(modifier: Modifier = Modifier) {
         mutableFloatStateOf(0f)
     }
 
+    if (isRunning) {
+        LaunchedEffect(key1 = remainingTime) {
+            while (remainingTime > 0) {
+                delay(1000)
+                remainingTime--
+                progress = 1 - remainingTime.toFloat() / initialTime
+            }
+            isRunning = false
+            remainingTime = initialTime
+            progress = 0F
+        }
+    }
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,7 +89,7 @@ fun TimerScreen(modifier: Modifier = Modifier) {
         Box(contentAlignment = Alignment.Center) {
             CircularProgressIndicator(
                 progress = { progress },
-                color = Color.Yellow,
+                color = Color.Green,
                 strokeWidth = 10.dp,
                 trackColor = Color.Gray,
                 modifier = Modifier.size(200.dp),
