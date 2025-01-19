@@ -1,6 +1,5 @@
 package com.example.weatherapp.presentation.screens
 
-import android.provider.CalendarContract.Colors
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,10 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.weatherapp.R
 import com.example.weatherapp.presentation.widgets.AppBackground
+import com.example.weatherapp.utils.EnvConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
+    println(EnvConfig.WEATHER_API_KEY)
+
+
     Box(modifier = modifier.fillMaxSize()) {
         AppBackground(photoId = R.drawable.weather_bg)
         Scaffold(
@@ -39,7 +42,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         ) {
             Surface(
                 color = Color.Transparent,
-                modifier = Modifier.padding(it).fillMaxSize().wrapContentSize()
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxSize()
+                    .wrapContentSize()
             ) {
                 Text("Weather Home", style = MaterialTheme.typography.displaySmall)
 

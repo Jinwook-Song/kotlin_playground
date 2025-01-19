@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.dotenv.kotlin)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
