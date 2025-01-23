@@ -29,7 +29,10 @@ fun WeatherApp(modifier: Modifier = Modifier) {
     homeViewModel.getWeatherData()
 
     WeatherAppTheme {
-        HomeScreen(modifier)
+        HomeScreen(
+            homeViewModel.uiState,
+            modifier,
+        )
     }
 }
 

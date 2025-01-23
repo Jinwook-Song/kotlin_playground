@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -19,7 +20,10 @@ import com.example.weatherapp.presentation.widgets.AppBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    uiState: WeatherHomeState,
+    modifier: Modifier = Modifier,
+) {
 
 
     Box(modifier = modifier.fillMaxSize()) {
@@ -45,7 +49,17 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                     .fillMaxSize()
                     .wrapContentSize()
             ) {
-                Text("Weather Home", style = MaterialTheme.typography.displaySmall)
+                when (uiState) {
+                    is WeatherHomeState.Error ->
+                        Text("Fail to fetch data", style = MaterialTheme.typography.displaySmall)
+
+                    is WeatherHomeState.Loading -> CircularProgressIndicator()
+                    is WeatherHomeState.Success -> Text(
+                        uiState.weather.currentWeather.main?.temp.toString(),
+                        style = MaterialTheme.typography.displaySmall
+                    )
+
+                }
 
             }
         }
