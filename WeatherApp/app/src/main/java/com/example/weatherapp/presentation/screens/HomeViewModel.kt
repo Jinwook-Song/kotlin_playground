@@ -9,16 +9,24 @@ import com.example.weatherapp.data.CurrentWeather
 import com.example.weatherapp.data.ForecastWeather
 import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.data.WeatherRepositoryImpl
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class HomeViewModel : ViewModel() {
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
 
     var uiState: WeatherHomeState by mutableStateOf(WeatherHomeState.Loading)
 
+    // Error propagation
+    private val exceptionHandler =
+        CoroutineExceptionHandler { _: CoroutineContext, _: Throwable ->
+            uiState = WeatherHomeState.Error
+        }
+
     fun getWeatherData() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             uiState = try {
                 val currentWeather = async { getCurrentData() }.await()
                 val forecastWeather = async { getForecastData() }.await()
