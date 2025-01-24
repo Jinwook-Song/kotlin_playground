@@ -11,3 +11,5 @@ object EnvConfig {
     val WEATHER_API_KEY: String = dotenv["WEATHER_API_KEY"]
         ?: throw IllegalStateException("WEATHER_API_KEY is not set in the environment")
 }
+
+const val degree = "\u00b0"

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.weatherapp.R
 import com.example.weatherapp.presentation.widgets.AppBackground
+import com.example.weatherapp.presentation.widgets.WeatherSection
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,10 +55,7 @@ fun HomeScreen(
                         Text("Fail to fetch data", style = MaterialTheme.typography.displaySmall)
 
                     is WeatherHomeState.Loading -> CircularProgressIndicator()
-                    is WeatherHomeState.Success -> Text(
-                        uiState.weather.currentWeather.main?.temp.toString(),
-                        style = MaterialTheme.typography.displaySmall
-                    )
+                    is WeatherHomeState.Success -> WeatherSection(uiState.weather)
 
                 }
 
