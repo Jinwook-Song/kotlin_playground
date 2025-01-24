@@ -22,6 +22,7 @@ import com.example.weatherapp.presentation.widgets.WeatherSection
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    isConnected: Boolean,
     uiState: WeatherHomeState,
     modifier: Modifier = Modifier,
 ) {
@@ -50,13 +51,19 @@ fun HomeScreen(
                     .fillMaxSize()
                     .wrapContentSize()
             ) {
-                when (uiState) {
-                    is WeatherHomeState.Error ->
-                        Text("Fail to fetch data", style = MaterialTheme.typography.displaySmall)
+                if (!isConnected) {
+                    Text("No internet connection", style = MaterialTheme.typography.displaySmall)
+                } else {
+                    when (uiState) {
+                        is WeatherHomeState.Error ->
+                            Text(
+                                "Fail to fetch data",
+                                style = MaterialTheme.typography.displaySmall
+                            )
 
-                    is WeatherHomeState.Loading -> CircularProgressIndicator()
-                    is WeatherHomeState.Success -> WeatherSection(uiState.weather)
-
+                        is WeatherHomeState.Loading -> CircularProgressIndicator()
+                        is WeatherHomeState.Success -> WeatherSection(uiState.weather)
+                    }
                 }
 
             }
