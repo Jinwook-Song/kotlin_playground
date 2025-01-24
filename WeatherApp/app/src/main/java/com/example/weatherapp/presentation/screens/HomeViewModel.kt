@@ -9,13 +9,16 @@ import com.example.weatherapp.data.CurrentWeather
 import com.example.weatherapp.data.ForecastWeather
 import com.example.weatherapp.data.WeatherRepository
 import com.example.weatherapp.data.WeatherRepositoryImpl
+import com.example.weatherapp.utils.EnvConfig
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : ViewModel(
+) {
     private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
+    private val appId = EnvConfig.WEATHER_API_KEY
 
     var uiState: WeatherHomeState by mutableStateOf(WeatherHomeState.Loading)
 
@@ -24,6 +27,14 @@ class HomeViewModel : ViewModel() {
         CoroutineExceptionHandler { _: CoroutineContext, _: Throwable ->
             uiState = WeatherHomeState.Error
         }
+
+    private var latitude = 0.0
+    private var logitude = 0.0
+
+    fun setLocation(lat: Double, lon: Double) {
+        latitude = lat
+        logitude = lon
+    }
 
     fun getWeatherData() {
         viewModelScope.launch(exceptionHandler) {
@@ -41,13 +52,13 @@ class HomeViewModel : ViewModel() {
 
     private suspend fun getCurrentData(): CurrentWeather {
         val endUrl =
-            "weather?lat=37.5252012&lon=127.0263883&appid=8ab63e31b6ca6a84e4f0a055bdffc9a4&units=metric"
+            "weather?lat=${latitude}&lon=${logitude}&appid=${appId}&units=metric"
         return weatherRepository.getCurrentWeather(endUrl)
     }
 
     private suspend fun getForecastData(): ForecastWeather {
         val endUrl =
-            "forecast?lat=37.5252012&lon=127.0263883&appid=8ab63e31b6ca6a84e4f0a055bdffc9a4&units=metric"
+            "forecast?lat=${latitude}&lon=${logitude}&appid=${appId}&units=metric"
         return weatherRepository.getForecastWeather(endUrl)
     }
 
