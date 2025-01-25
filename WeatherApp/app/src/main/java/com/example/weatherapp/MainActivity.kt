@@ -44,7 +44,7 @@ fun WeatherApp(
     client: FusedLocationProviderClient,
     modifier: Modifier = Modifier,
 ) {
-    val homeViewModel: HomeViewModel = viewModel()
+    val homeViewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory)
     val context = LocalContext.current
     var permissionGranted by remember { mutableStateOf(false) }
     val launcher = rememberLauncherForActivityResult(
