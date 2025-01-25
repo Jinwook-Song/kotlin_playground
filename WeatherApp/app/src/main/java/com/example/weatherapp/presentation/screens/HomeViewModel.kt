@@ -1,34 +1,31 @@
 package com.example.weatherapp.presentation.screens
 
-import android.app.Application
-import android.net.ConnectivityManager
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.weatherapp.data.ConnectivityRepository
-import com.example.weatherapp.data.ConnectivityRepositoryImpl
 import com.example.weatherapp.data.CurrentWeather
 import com.example.weatherapp.data.ForecastWeather
 import com.example.weatherapp.data.WeatherRepository
-import com.example.weatherapp.data.WeatherRepositoryImpl
 import com.example.weatherapp.utils.EnvConfig
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class HomeViewModel(
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val connectionRepository: ConnectivityRepository,
-) : ViewModel(
+    private val weatherRepository: WeatherRepository,
+
+    ) : ViewModel(
 ) {
-    private val weatherRepository: WeatherRepository = WeatherRepositoryImpl()
     private val appId = EnvConfig.WEATHER_API_KEY
 
     var uiState: WeatherHomeState by mutableStateOf(WeatherHomeState.Loading)
@@ -74,20 +71,21 @@ class HomeViewModel(
         return weatherRepository.getForecastWeather(endUrl)
     }
 
+    // Hilt로 대체
     // Define ViewModel factory in a companion object
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY] as Application
-                val connectivityManager =
-                    application.getSystemService(ConnectivityManager::class.java)
-                HomeViewModel(
-                    connectionRepository = ConnectivityRepositoryImpl(connectivityManager)
-                )
-
-            }
-        }
-    }
+//    companion object {
+//        val Factory: ViewModelProvider.Factory = viewModelFactory {
+//            initializer {
+//                val application = this[APPLICATION_KEY] as Application
+//                val connectivityManager =
+//                    application.getSystemService(ConnectivityManager::class.java)
+//                HomeViewModel(
+//                    connectionRepository = ConnectivityRepositoryImpl(connectivityManager)
+//                )
+//
+//            }
+//        }
+//    }
 
 
 }
