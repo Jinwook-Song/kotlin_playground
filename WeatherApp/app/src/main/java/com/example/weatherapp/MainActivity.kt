@@ -22,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.weatherapp.presentation.screens.ConnectivityState
 import com.example.weatherapp.presentation.screens.HomeScreen
 import com.example.weatherapp.presentation.screens.HomeViewModel
+import com.example.weatherapp.presentation.screens.WeatherHomeState
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -71,6 +72,10 @@ fun WeatherApp(
     WeatherAppTheme {
         HomeScreen(
             isConnected = connectivityState == ConnectivityState.Available,
+            onRefresh = {
+                homeViewModel.uiState = WeatherHomeState.Loading
+                homeViewModel.getWeatherData()
+            },
             homeViewModel.uiState,
             modifier,
         )
