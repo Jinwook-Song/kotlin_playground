@@ -39,7 +39,10 @@ fun ShoppingApp(modifier: Modifier = Modifier) {
             startDestination = HomeRoute
         ) {
             composable<HomeRoute>() {
-                HomePage(modifier)
+                HomePage(
+                    navigateToAddEvent = { navController.navigate(route = AddEventRoute) },
+                    modifier = modifier
+                )
             }
             composable<AddEventRoute>() {
                 AddEventPage(
