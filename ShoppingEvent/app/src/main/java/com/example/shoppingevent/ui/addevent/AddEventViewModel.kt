@@ -26,4 +26,10 @@ class AddEventViewModel @Inject constructor() : ViewModel() {
             name.isNotBlank() && eventDate.isNotBlank()
         }
     }
+
+    suspend fun saveEvent() {
+        if (validateInput()) {
+            // TODO
+        }
+    }
 }
