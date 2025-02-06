@@ -58,9 +58,7 @@ fun ShoppingApp(modifier: Modifier = Modifier) {
                     modifier = modifier
                 )
             }
-
         }
-
     }
 }
 
