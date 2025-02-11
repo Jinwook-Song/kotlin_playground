@@ -4,12 +4,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.shoppingevent.data.repositories.ShoppingEventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
 @HiltViewModel
-class AddEventViewModel @Inject constructor() : ViewModel() {
+class AddEventViewModel @Inject constructor(
+    private val shoppingEventRepository: ShoppingEventRepository,
+) : ViewModel() {
     var addEventUiState by mutableStateOf(AddEventUiState())
 
     fun updateUiState(addEventDetails: AddEventDetails) {
@@ -29,7 +32,7 @@ class AddEventViewModel @Inject constructor() : ViewModel() {
 
     suspend fun saveEvent() {
         if (validateInput()) {
-            // TODO
+            shoppingEventRepository.insert(addEventUiState.addEventDetails.toEntity())
         }
     }
 }
