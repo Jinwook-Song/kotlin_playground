@@ -10,4 +10,4 @@ object HomeRoute
 object AddEventRoute
 
 @Serializable
-object EventDetailsRoute
+data class EventDetailsRoute(val eventId: Long, val eventName: String)

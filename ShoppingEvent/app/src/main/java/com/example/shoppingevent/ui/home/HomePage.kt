@@ -1,5 +1,6 @@
 package com.example.shoppingevent.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -22,6 +23,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.shoppingevent.customcomposables.ShoppingAppBar
 import com.example.shoppingevent.data.entities.ShoppingEvent
@@ -29,6 +31,7 @@ import com.example.shoppingevent.data.entities.ShoppingEvent
 @Composable
 fun HomePage(
     navigateToAddEvent: () -> Unit,
+    navigateToEventDetails: (Long, String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -58,6 +61,7 @@ fun HomePage(
         }
         ShoppingEventList(
             shoppingEvents = uiState.events,
+            navigateToEventDetails = navigateToEventDetails,
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -66,11 +70,15 @@ fun HomePage(
 @Composable
 fun ShoppingEventList(
     shoppingEvents: List<ShoppingEvent>,
+    navigateToEventDetails: (Long, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
         items(shoppingEvents) { event ->
-            ShoppingEventItem(event)
+            ShoppingEventItem(
+                event,
+                onTapEvent = navigateToEventDetails
+            )
         }
     }
 }
@@ -78,10 +86,16 @@ fun ShoppingEventList(
 @Composable
 fun ShoppingEventItem(
     shoppingEvent: ShoppingEvent,
+    onTapEvent: (Long, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     ListItem(
-        modifier = modifier,
+        modifier = modifier
+            .padding(8.dp)
+            .clickable {
+                onTapEvent(shoppingEvent.id, shoppingEvent.name)
+            },
+        tonalElevation = 10.dp,
         leadingContent = {
             IconButton(
                 onClick = {}
