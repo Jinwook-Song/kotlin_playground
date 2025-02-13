@@ -27,7 +27,9 @@ abstract class ShoppingDatabase : RoomDatabase() {
                     context,
                     ShoppingDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).build().also {
+                    Instance = it
+                }
             }
         }
     }
