@@ -26,5 +26,4 @@ object DatabaseModule {
     fun provideShoppingItemDao(@ApplicationContext context: Context): ShoppingItemDao {
         return ShoppingDatabase.getDatabase(context).shoppingItemDao()
     }
-
 }

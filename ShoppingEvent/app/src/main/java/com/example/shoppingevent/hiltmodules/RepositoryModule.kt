@@ -15,12 +15,8 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindShoppingEventRepository(
-        impl: ShoppingEventRepositoryImpl,
-    ): ShoppingEventRepository
+    abstract fun bindShoppingEventRepository(impl: ShoppingEventRepositoryImpl): ShoppingEventRepository
 
     @Binds
-    abstract fun bindShoppingItemRepository(
-        impl: ShoppingItemRepositoryImpl,
-    ): ShoppingItemRepository
+    abstract fun bindShoppingItemRepository(impl: ShoppingItemRepositoryImpl): ShoppingItemRepository
 }
