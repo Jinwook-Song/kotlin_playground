@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    val shoppingEventRepository: ShoppingEventRepository,
+    private val shoppingEventRepository: ShoppingEventRepository,
 ) : ViewModel() {
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState = _homeUiState.asStateFlow() // immutable
@@ -27,6 +27,4 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
-
 }

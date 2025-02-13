@@ -24,6 +24,5 @@ class ShoppingItemRepositoryImpl @Inject constructor(
     override suspend fun delete(shoppingItem: ShoppingItem) =
         shoppingItemDao.delete(shoppingItem)
 
-    override fun getItems(): Flow<List<ShoppingItem>> =
-        shoppingItemDao.getItems()
+    override fun getItems(): Flow<List<ShoppingItem>> = shoppingItemDao.getItems()
 }
