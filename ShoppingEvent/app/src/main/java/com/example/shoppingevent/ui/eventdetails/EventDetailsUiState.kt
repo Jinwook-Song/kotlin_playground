@@ -1,5 +1,6 @@
 package com.example.shoppingevent.ui.eventdetails
 
+import com.example.shoppingevent.data.entities.ShoppingItem
 import com.example.shoppingevent.ui.addevent.AddEventDetails
 
 data class ItemDetails(
@@ -18,4 +19,12 @@ data class ItemUiState(
 data class EventDetailsUiState(
     val eventDetails: AddEventDetails = AddEventDetails(),
     val itemList: List<ItemUiState> = emptyList(),
+)
+
+fun ShoppingItem.toItemDetails(): ItemDetails = ItemDetails(
+    itemId = itemId,
+    eventId = eventId,
+    name = itemName,
+    price = price.toString(),
+    quantity = quantity.toString()
 )

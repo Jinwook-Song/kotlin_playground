@@ -2,6 +2,7 @@ package com.example.shoppingevent.data.repositories
 
 import com.example.shoppingevent.data.daos.ShoppingEventDao
 import com.example.shoppingevent.data.entities.ShoppingEvent
+import com.example.shoppingevent.data.entities.ShoppingItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -10,6 +11,8 @@ interface ShoppingEventRepository {
     suspend fun update(shoppingEvent: ShoppingEvent)
     suspend fun delete(shoppingEvent: ShoppingEvent)
     fun getEvents(): Flow<List<ShoppingEvent>>
+    fun getEventAndItems(id: Long): Flow<Map<ShoppingEvent, List<ShoppingItem>>>
+
 }
 
 class ShoppingEventRepositoryImpl @Inject constructor(
@@ -27,4 +30,6 @@ class ShoppingEventRepositoryImpl @Inject constructor(
     override fun getEvents(): Flow<List<ShoppingEvent>> =
         shoppingEventDao.getEvents()
 
+    override fun getEventAndItems(id: Long): Flow<Map<ShoppingEvent, List<ShoppingItem>>> =
+        shoppingEventDao.getEventAndItems(id)
 }

@@ -26,3 +26,12 @@ fun AddEventDetails.toEntity(): ShoppingEvent = ShoppingEvent(
     eventDate = eventDate,
     completed = completed
 )
+
+fun ShoppingEvent.toAddEventDetails(): AddEventDetails = AddEventDetails(
+    id = id,
+    name = name,
+    initialBudget = initialBudget.toString(),
+    totalCost = totalCost,
+    eventDate = eventDate,
+    completed = completed
+)
