@@ -1,9 +1,7 @@
 package com.example.shoppingevent.ui.home
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -16,15 +14,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.shoppingevent.customcomposables.EmptyList
 import com.example.shoppingevent.customcomposables.ShoppingAppBar
 import com.example.shoppingevent.data.entities.ShoppingEvent
 
@@ -120,20 +117,7 @@ fun ShoppingEventItem(
 
 }
 
-@Composable
-fun EmptyList(
-    message: String,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize()
-    ) {
-        Text(message, textAlign = TextAlign.Center)
-    }
 
-}
 
 
 
