@@ -1,5 +1,6 @@
 package com.example.shoppingevent.ui.eventdetails
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,6 +33,7 @@ class EventDetailsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             shoppingEventRepository.getEventAndItems(detailsRoute.eventId).collect { map ->
+                Log.d("EventDetailsViewModel", "EventAndItems: $map")
                 val entry = map.entries.firstOrNull()
                 _uiState.update {
                     it.copy(
@@ -42,7 +44,6 @@ class EventDetailsViewModel @Inject constructor(
                                 itemDetails = item.toItemDetails()
                             )
                         } ?: emptyList()
-
                     )
                 }
 
@@ -50,12 +51,41 @@ class EventDetailsViewModel @Inject constructor(
         }
     }
 
-    suspend fun addItem(
+    fun toggleEdit(itemDetails: ItemDetails) {
+        _uiState.update { state ->
+            state.copy(
+                itemList = state.itemList.map {
+                    if (it.itemDetails.itemId == itemDetails.itemId) {
+                        it.copy(isEdit = !it.isEdit)
+                    } else {
+                        it
+                    }
+                }
+            )
+        }
+    }
 
-    ) {
+    fun onValueChange(itemDetails: ItemDetails) {
+        _uiState.update { state ->
+            state.copy(
+                itemList = state.itemList.map {
+                    if (it.itemDetails.itemId == itemDetails.itemId) {
+                        it.copy(itemDetails = itemDetails)
+                    } else {
+                        it
+                    }
+                }
+            )
+        }
+    }
+
+    suspend fun addItem() {
         val item = ShoppingItem(eventId = detailsRoute.eventId, itemName = "Item")
         shoppingItemRepository.insert(item)
+    }
 
+    suspend fun updateItem(itemDetails: ItemDetails) {
+        shoppingItemRepository.update(itemDetails.toShoppingItem())
     }
 
 }

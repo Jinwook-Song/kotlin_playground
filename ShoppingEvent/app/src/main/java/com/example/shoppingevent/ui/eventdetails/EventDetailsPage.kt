@@ -25,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.shoppingevent.customcomposables.EditItem
 import com.example.shoppingevent.customcomposables.EmptyList
 import com.example.shoppingevent.customcomposables.ShoppingAppBar
 import com.example.shoppingevent.ui.addevent.AddEventDetails
@@ -77,6 +78,13 @@ fun EventDetailsPage(
             eventDetails = uiState.eventDetails,
             shoppingItems = uiState.itemList,
             lazyListState = lazyListState,
+            toggleEdit = viewModel::toggleEdit,
+            onValueChange = viewModel::onValueChange,
+            onUpdate = {
+                coroutineScope.launch {
+                    viewModel.updateItem(it)
+                }
+            },
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -87,6 +95,9 @@ fun ShoppingItemList(
     eventDetails: AddEventDetails,
     shoppingItems: List<ItemUiState>,
     lazyListState: LazyListState,
+    toggleEdit: (ItemDetails) -> Unit,
+    onValueChange: (ItemDetails) -> Unit,
+    onUpdate: (ItemDetails) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -120,28 +131,11 @@ fun ShoppingItemList(
             items = shoppingItems,
             key = { it.itemDetails.itemId }
         ) {
-            ListItem(
-                leadingContent = {
-                    IconButton(
-                        onClick = {
-                            
-                        }
-                    ) {
-                        Icon(Icons.Default.Edit, contentDescription = "Edit Item")
-                    }
-                },
-                headlineContent = {
-                    Text(it.itemDetails.name)
-                },
-                supportingContent = {
-                    Text("Quantity: ${it.itemDetails.quantity}")
-                },
-                trailingContent = {
-                    Text(
-                        "Price: ${it.itemDetails.price}",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
+            SingleItemView(
+                itemUiState = it,
+                onValueChange = onValueChange,
+                onUpdate = onUpdate,
+                toggleEdit = toggleEdit
             )
         }
 
@@ -151,11 +145,49 @@ fun ShoppingItemList(
     }
 }
 
+@Composable
+fun SingleItemView(
+    itemUiState: ItemUiState,
+    onValueChange: (ItemDetails) -> Unit,
+    onUpdate: (ItemDetails) -> Unit,
+    toggleEdit: (ItemDetails) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val item = itemUiState.itemDetails
+    if (itemUiState.isEdit) {
+        EditItem(
+            itemDetails = item,
+            onValueChange = onValueChange,
+            onUpdate = onUpdate,
+            modifier = modifier
+        )
+    } else {
+        ListItem(
+            leadingContent = {
+                IconButton(
+                    onClick = {
+                        toggleEdit(item)
+                    }
+                ) {
+                    Icon(Icons.Default.Edit, contentDescription = "Edit Item")
+                }
+            },
+            headlineContent = {
+                Text(item.name)
+            },
+            supportingContent = {
+                Text("Quantity: ${item.quantity}")
+            },
+            trailingContent = {
+                Text(
+                    "Price: ${item.price}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        )
+    }
 
-
-
-
-
+}
 
 
 

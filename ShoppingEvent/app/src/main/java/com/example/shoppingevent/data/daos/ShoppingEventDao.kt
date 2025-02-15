@@ -26,8 +26,8 @@ interface ShoppingEventDao {
 
     @Query(
         """
-    SELECT se.*, 
-           (SELECT SUM(si.price + si.quantity) FROM shopping_items si WHERE si.event_id = se.id) AS total_cost, 
+    SELECT   se.id, se.name, se.initial_budget, se.event_date, se.completed,  
+           (SELECT SUM(si.price * si.quantity) FROM shopping_items si WHERE si.event_id = se.id) AS total_cost, 
            si.*
     FROM shopping_events se 
     LEFT JOIN shopping_items si ON se.id = si.event_id 
