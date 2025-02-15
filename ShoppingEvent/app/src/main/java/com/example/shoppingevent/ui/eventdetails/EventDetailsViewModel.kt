@@ -1,6 +1,5 @@
 package com.example.shoppingevent.ui.eventdetails
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,7 +32,6 @@ class EventDetailsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             shoppingEventRepository.getEventAndItems(detailsRoute.eventId).collect { map ->
-                Log.d("EventDetailsViewModel", "EventAndItems: $map")
                 val entry = map.entries.firstOrNull()
                 _uiState.update {
                     it.copy(
