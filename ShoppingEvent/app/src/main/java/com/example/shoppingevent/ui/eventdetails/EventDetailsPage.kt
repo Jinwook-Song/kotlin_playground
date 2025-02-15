@@ -9,8 +9,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -119,6 +121,15 @@ fun ShoppingItemList(
             key = { it.itemDetails.itemId }
         ) {
             ListItem(
+                leadingContent = {
+                    IconButton(
+                        onClick = {
+                            
+                        }
+                    ) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit Item")
+                    }
+                },
                 headlineContent = {
                     Text(it.itemDetails.name)
                 },
