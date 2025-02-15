@@ -25,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.shoppingevent.customcomposables.DismissibleItem
 import com.example.shoppingevent.customcomposables.EditItem
 import com.example.shoppingevent.customcomposables.EmptyList
 import com.example.shoppingevent.customcomposables.ShoppingAppBar
@@ -162,29 +163,33 @@ fun SingleItemView(
             modifier = modifier
         )
     } else {
-        ListItem(
-            leadingContent = {
-                IconButton(
-                    onClick = {
-                        toggleEdit(item)
+        DismissibleItem(
+            onDelete = {},
+        ) {
+            ListItem(
+                leadingContent = {
+                    IconButton(
+                        onClick = {
+                            toggleEdit(item)
+                        }
+                    ) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit Item")
                     }
-                ) {
-                    Icon(Icons.Default.Edit, contentDescription = "Edit Item")
+                },
+                headlineContent = {
+                    Text(item.name)
+                },
+                supportingContent = {
+                    Text("Quantity: ${item.quantity}")
+                },
+                trailingContent = {
+                    Text(
+                        "Price: ${item.price}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
-            },
-            headlineContent = {
-                Text(item.name)
-            },
-            supportingContent = {
-                Text("Quantity: ${item.quantity}")
-            },
-            trailingContent = {
-                Text(
-                    "Price: ${item.price}",
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        )
+            )
+        }
     }
 
 }
