@@ -2,6 +2,7 @@ package com.example.shoppingevent.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shoppingevent.data.entities.ShoppingEvent
 import com.example.shoppingevent.data.repositories.ShoppingEventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,5 +27,9 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    suspend fun deleteEvent(shoppingEvent: ShoppingEvent) {
+        shoppingEventRepository.delete(shoppingEvent)
     }
 }
