@@ -41,7 +41,10 @@ fun DismissibleItem(
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
             when (it) {
-                SwipeToDismissBoxValue.StartToEnd -> {}
+                SwipeToDismissBoxValue.StartToEnd -> {
+                    return@rememberSwipeToDismissBoxState true
+                }
+
                 SwipeToDismissBoxValue.EndToStart -> {
                     showDialog = true
                     return@rememberSwipeToDismissBoxState false
@@ -51,7 +54,6 @@ fun DismissibleItem(
                     return@rememberSwipeToDismissBoxState false
                 }
             }
-            return@rememberSwipeToDismissBoxState true
         },
         positionalThreshold = {
             it * 0.75f
