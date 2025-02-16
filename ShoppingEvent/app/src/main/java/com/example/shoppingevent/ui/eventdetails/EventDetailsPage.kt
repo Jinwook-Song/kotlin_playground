@@ -86,6 +86,11 @@ fun EventDetailsPage(
                     viewModel.updateItem(it)
                 }
             },
+            onDelete = {
+                coroutineScope.launch {
+                    viewModel.deleteItem(it)
+                }
+            },
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -99,6 +104,7 @@ fun ShoppingItemList(
     toggleEdit: (ItemDetails) -> Unit,
     onValueChange: (ItemDetails) -> Unit,
     onUpdate: (ItemDetails) -> Unit,
+    onDelete: (ItemDetails) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -136,7 +142,8 @@ fun ShoppingItemList(
                 itemUiState = it,
                 onValueChange = onValueChange,
                 onUpdate = onUpdate,
-                toggleEdit = toggleEdit
+                toggleEdit = toggleEdit,
+                onDelete = onDelete
             )
         }
 
@@ -152,6 +159,7 @@ fun SingleItemView(
     onValueChange: (ItemDetails) -> Unit,
     onUpdate: (ItemDetails) -> Unit,
     toggleEdit: (ItemDetails) -> Unit,
+    onDelete: (ItemDetails) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val item = itemUiState.itemDetails
@@ -164,7 +172,9 @@ fun SingleItemView(
         )
     } else {
         DismissibleItem(
-            onDelete = {},
+            onDelete = {
+                onDelete(item)
+            },
         ) {
             ListItem(
                 leadingContent = {

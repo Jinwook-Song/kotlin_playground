@@ -86,4 +86,8 @@ class EventDetailsViewModel @Inject constructor(
         shoppingItemRepository.update(itemDetails.toShoppingItem())
     }
 
+    suspend fun deleteItem(itemDetails: ItemDetails) {
+        shoppingItemRepository.delete(itemDetails.toShoppingItem())
+    }
+
 }
